@@ -37,7 +37,12 @@ export default function GameList() {
     const fetchGames = async () => {
       setLoading(true);
       try {
-        const res = await fetch('https://game-store-backend-nzq4.onrender.com/api/game/all');
+        const API_BASE =
+          import.meta.env.MODE === 'development'
+            ? 'http://localhost:3030'
+            : 'https://game-store-backend-nzq4.onrender.com';
+
+        const res = await fetch(`${API_BASE}/api/game/all`);
         const realGames = await res.json();  
         const extendedGames = realGames.length > 0 ? realGames : fakeGames;
     
