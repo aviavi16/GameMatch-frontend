@@ -38,12 +38,8 @@ export default function GameList() {
       setLoading(true);
       try {
         const res = await fetch('https://game-store-backend-nzq4.onrender.com/api/game/all');
-        const realGames = await res.json();
-    
-        const extendedGames =
-          realGames.length < 3
-            ? [...realGames, ...fakeGames.slice(0, 3 - realGames.length)]
-            : realGames;
+        const realGames = await res.json();  
+        const extendedGames = realGames.length > 0 ? realGames : fakeGames;
     
         setGames(extendedGames);
       } catch (err) {
