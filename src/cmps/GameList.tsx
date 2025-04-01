@@ -9,36 +9,25 @@ interface Game {
   description: string;
   imageUrl: string;
   createdAt: string;
+  isFake?: boolean;
 }
 
 const fakeGames: Game[] = [
-    {
-        name: 'Terraforming Mars',
-        description: 'In the 2400s, mankind begins to terraform the planet Mars...',
-        imageUrl: terraformingImg,
-        createdAt: '27/03/2025, 14:32',
-      },
-      {
-        name: 'Wingspan',
-        description: 'A card-driven engine-building board game about birds...',
-        imageUrl: wingspanImg,
-        createdAt: '28/03/2025, 10:15',
-    },
-    {
-      name: 'Codenames',
-      description:
-        'Two rival spymasters know the secret identities of 25 agents. Their teammates know the agents only by their codenames. Teams compete to see who can make contact with all of their agents first.',
-      imageUrl: 'https://source.unsplash.com/featured/?spies,boardgame',
-      createdAt: '29/03/2025, 18:45',
-    },
-    {
-      name: 'Gloomhaven',
-      description:
-        'A game of Euro-inspired tactical combat in a persistent world of shifting motives. Players will take on the role of a wandering adventurer with their own special set of skills and their own reasons for traveling to this dark corner of the world.',
-      imageUrl: 'https://source.unsplash.com/featured/?fantasy,boardgame',
-      createdAt: '30/03/2025, 21:12',
-    },
-  ];  
+  {
+    name: 'Terraforming Mars',
+    description: '...',
+    imageUrl: terraformingImg,
+    createdAt: '01/04/2025, 12:00',
+    isFake: true,
+  },
+  {
+    name: 'Wingspan',
+    description: '...',
+    imageUrl: wingspanImg,
+    createdAt: '01/04/2025, 12:05',
+    isFake: true,
+  },
+];
 
 export default function GameList() {
   const [games, setGames] = useState<Game[]>([]);

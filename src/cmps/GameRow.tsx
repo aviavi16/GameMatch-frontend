@@ -5,6 +5,7 @@ interface Game {
   description: string;
   imageUrl: string;
   createdAt: string;
+  isFake?: boolean,
   bgg?: {
     description: string;
     minPlayers: number;
@@ -43,7 +44,14 @@ export default function GameRow({ game }: { game: Game }) {
         className="w-full sm:w-40 h-32 object-cover rounded-md shadow"
       />
       <div className="flex-1">
-        <h3 className="text-xl font-semibold">{game.name}</h3>
+      <h3 className="text-xl font-semibold flex items-center gap-2">
+        {game.name}
+        {game.isFake && (
+          <span className="text-xs bg-yellow-200 text-yellow-800 px-2 py-0.5 rounded-full">
+            🔻 DEMO
+          </span>
+        )}
+      </h3>
         <p className="text-sm text-gray-700 dark:text-gray-300 mt-1">
           {showMore ? fullDescription : shortDescription}
         </p>
