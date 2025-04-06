@@ -8,6 +8,7 @@ interface Game {
   name: string;
   description: string;
   imageUrl: string;
+  amazonPrice?: number;
   createdAt: string;
   isFake?: boolean;
 }
@@ -37,10 +38,11 @@ export default function GameList() {
     const fetchGames = async () => {
       setLoading(true);
       try {
-        const API_BASE =
-          import.meta.env.MODE === 'development'
-            ? 'http://localhost:3030'
-            : 'https://game-store-backend-nzq4.onrender.com';
+        // const API_BASE =
+        //   import.meta.env.MODE === 'development'
+        //     ? 'http://localhost:3030'
+        //     : 'https://game-store-backend-nzq4.onrender.com';
+        const API_BASE = 'https://game-store-backend-nzq4.onrender.com';
 
         const res = await fetch(`${API_BASE}/api/game/all`);
         const realGames = await res.json();  
