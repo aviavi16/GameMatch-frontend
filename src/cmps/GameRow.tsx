@@ -4,8 +4,8 @@ interface Game {
   name: string;
   description: string;
   imageUrl: string;
-  createdAt: string;
-  amazonPrice?: number;
+  createdAt: string;  
+  //amazonPrice?: number; // Amazon price temporarily hidden until future release
   isFake?: boolean;
   bgg?: {
     description: string;
@@ -47,11 +47,14 @@ export default function GameRow({ game }: { game: Game }) {
           alt={game.name}
           className="w-full h-32 object-cover rounded-md shadow"
         />
+        {/* 🔒 Amazon price temporarily hidden until future release 
         {game.amazonPrice && (
           <div className="mt-2 text-sm bg-green-100 text-green-800 px-2 py-1 rounded font-medium dark:bg-green-200 dark:text-green-900">
             💰 ${game.amazonPrice.toFixed(2)}
           </div>
         )}
+        */}
+        
       </div>
 
       {/* Game info */}
@@ -69,6 +72,33 @@ export default function GameRow({ game }: { game: Game }) {
           {showMore ? fullDescription : shortDescription}
         </p>
         <p className="text-xs text-gray-500 mt-2">📅 Added: {game.createdAt}</p>
+
+        {!game.isFake && (
+          <button
+            onClick={async () => {
+              const confirm = window.confirm(`Are you sure you want to delete "${game.name}"?`);
+              if (!confirm) return;
+
+              try {
+                const res = await fetch(`https://game-store-backend-nzq4.onrender.com/api/game/remove?name=${encodeURIComponent(game.name)}`, {
+                  method: 'DELETE',
+                });
+                if (res.ok) {
+                  alert(`✅ Game "${game.name}" deleted`);
+                  window.location.reload(); // או תוכל להעביר callback ל־GameList לעדכון חכם
+                } else {
+                  alert(`❌ Failed to delete game: ${await res.text()}`);
+                }
+              } catch (err) {
+                console.error('❌ Error deleting game:', err);
+                alert('❌ Error deleting game');
+              }
+            }}
+            className="mt-2 ml-2 px-3 py-1 text-sm bg-red-600 text-white rounded hover:bg-red-700 transition"
+          >
+            ❌ Delete
+          </button>
+        )}
 
         {fullDescription.length > MAX_DESCRIPTION_LENGTH && (
           <button
